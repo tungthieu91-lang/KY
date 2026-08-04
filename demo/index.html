@@ -1,0 +1,364 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101827"><title>KY Đại Kỷ Nguyên</title><link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1267e8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="KY Đại Kỷ Nguyên">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+</head><body><div id="app">
+<header class="topbar"><button class="brand" id="brandBtn"><span class="logo ky-logo-mark">KY</span><span class="brand-copy"><b>KY AI</b><small>ĐẠI KỶ NGUYÊN BẤT ĐỘNG SẢN</small></span></button><nav>
+      <button id="importDataBtn">Nhập dữ liệu Đại Thế Kỷ</button>
+      <input id="dataFileInput" type="file" accept="application/json,.json" hidden><button data-view="home">Tìm nhà</button><button data-view="compare">So sánh</button><button data-view="pro">KY Pro</button><button id="themeBtn">◐</button></nav></header>
+<main><section id="homeView" class="view active"><div class="hero compact professional-hero">
+  <div class="hero-brandline"><span class="hero-logo ky-logo-mark">KY</span><span class="hero-brand-name">ĐẠI KỶ NGUYÊN BẤT ĐỘNG SẢN</span></div>
+  <h1>AI hiểu bạn trước khi tìm nhà.</h1>
+  <p>Không cần nhập đủ bộ lọc. Chỉ cần mô tả điều bạn đang tìm, KY AI sẽ phân tích và đề xuất những bất động sản phù hợp nhất.</p>
+</div>
+
+<section class="ai-brain-bar">
+  <div class="brain-copy">
+    <span class="brain-icon">🧠</span>
+    <div><b>BỘ NÃO KY AI ĐANG HOẠT ĐỘNG</b><small>AI phân tích kho dữ liệu và xếp hạng bất động sản theo nhu cầu.</small></div>
+  </div>
+  <div class="brain-metrics">
+    <div><b id="brainAnalyzed">0</b><small>Căn đã phân tích</small></div>
+    <div><b id="brainMatched">0</b><small>Căn phù hợp</small></div>
+    <div><b id="brainAccuracy">98%</b><small>Độ tin cậy demo</small></div>
+    <div><b id="brainSpeed">1.2s</b><small>Phản hồi</small></div>
+  </div>
+  <div class="brain-actions"><button id="openReaderVerifyBtn" class="ai-outline-btn" type="button">🧠 Reader + Verify</button><button id="openVisionSettingsBtn" class="ai-outline-btn" type="button">🖼 Lọc ảnh</button><button id="openApprovalQueueBtn" class="ai-outline-btn approval-queue-trigger" type="button">🔔 Duyệt ảnh <span id="approvalQueueCount">0</span></button><button id="installPwaBtn" class="ai-outline-btn hidden" type="button">📲 Cài ứng dụng</button><button id="openAiTestLabBtn" class="ai-outline-btn" type="button">🧪 Test AI Offline</button><button id="openAiChatBtn" class="ai-outline-btn" type="button">💬 Chat với AI</button></div>
+</section>
+
+<div class="ai-dashboard-grid"><div class="ai-main-pane">
+<section class="smart-search panel">
+  <div class="smart-query-row">
+    <div class="smart-query-box">
+      <span class="query-icon">✦</span>
+      <textarea id="smartQuery" rows="2" placeholder="Mô tả căn nhà bạn cần, ví dụ: Nhà 8–12 tỷ tại Sơn Trà, gần biển, ô tô tránh..."></textarea>
+      <button id="voiceBtn" type="button" title="Nhập bằng giọng nói">🎤</button>
+    </div>
+    <button id="smartSearchBtn" class="smart-submit" type="button">Tìm với KY</button>
+  </div>
+  <div class="filter-grid">
+    <label><span>Khu vực <em>tùy chọn</em></span><select id="filterDistrict"><option value="">Tất cả khu vực</option><option>Sơn Trà</option><option>Hải Châu</option><option>Ngũ Hành Sơn</option><option>Thanh Khê</option><option>Liên Chiểu</option><option>Cẩm Lệ</option><option>Hòa Vang</option></select></label>
+    <label><span>Giá từ (tỷ) <em>tùy chọn</em></span><input id="filterMinPrice" type="number" min="0" step="0.1" placeholder="0"></label>
+    <label><span>Giá đến (tỷ) <em>tùy chọn</em></span><input id="filterMaxPrice" type="number" min="0" step="0.1" placeholder="Không giới hạn"></label>
+    <label><span>Diện tích từ (m²) <em>tùy chọn</em></span><input id="filterMinArea" type="number" min="0" step="1" placeholder="0"></label>
+    <label><span>Loại hình <em>tùy chọn</em></span><select id="filterType"><option value="">Tất cả loại hình</option><option value="nha">Nhà</option><option value="dat">Đất</option><option value="can ho">Căn hộ</option><option value="khach san">Khách sạn</option></select></label>
+    <label><span>Phòng ngủ từ <em>tùy chọn</em></span><input id="filterBedrooms" type="number" min="0" step="1" placeholder="0"></label>
+  </div>
+  <div class="feature-row" id="featureFilters">
+    <label><input type="checkbox" value="car"><span>🚗 Ô tô</span></label>
+    <label><input type="checkbox" value="car_avoid"><span>↔️ Ô tô tránh</span></label>
+    <label><input type="checkbox" value="frontage"><span>🏬 Mặt tiền</span></label>
+    <label><input type="checkbox" value="business"><span>💼 Kinh doanh</span></label>
+    <label><input type="checkbox" value="beach"><span>🌊 Gần biển</span></label>
+    <label><input type="checkbox" value="income"><span>💰 Dòng tiền</span></label>
+    <label><input type="checkbox" value="corner"><span>◩ Lô góc</span></label>
+  </div>
+  <div class="filter-actions professional-filter-actions">
+    <div class="filter-left-actions"><button id="allProductsBtn" class="all-products-btn" type="button">🏠 Tất cả sản phẩm</button><button id="resetFiltersBtn" class="secondary" type="button">Đặt lại</button></div>
+    <div id="smartSummary" class="smart-summary"><span class="summary-dot"></span><span>Bạn có thể tìm chỉ với một tiêu chí hoặc xem toàn bộ sản phẩm.</span></div>
+    <button id="filterApplyBtn" class="filter-apply-btn" type="button"><span>✨</span> Lọc với AI</button>
+  </div>
+</section>
+
+<section class="discovery-section hot-section">
+  <div class="discovery-head"><div><b>🔥 TOP 10 CĂN HOT</b><small>AI xếp hạng theo điểm, mức quan tâm và độ đầy đủ dữ liệu</small></div><button id="showHotBtn" type="button">Xem tất cả →</button></div>
+  <div id="hotPropertyRail" class="discovery-rail"></div>
+</section>
+<section class="discovery-section new-section">
+  <div class="discovery-head"><div><b>🆕 TOP 10 CĂN MỚI NHẤT</b><small>Cập nhật mới nhất từ kho dữ liệu KY</small></div><button id="showNewBtn" type="button">Xem tất cả →</button></div>
+  <div id="newPropertyRail" class="discovery-rail"></div>
+</section>
+<section id="resultsSection" class="results homepage-catalog">
+  <div class="section-head">
+    <div><span class="eyebrow">KHO BẤT ĐỘNG SẢN KY</span><h2>Tất cả sản phẩm bất động sản</h2><p class="catalog-subtitle">Hiển thị toàn bộ kho dữ liệu; dùng bộ lọc phía trên để thu hẹp kết quả.</p></div>
+    <div class="catalog-head-actions"><span id="catalogTotalBadge" class="catalog-total-badge">0 sản phẩm</span><button id="compareSelectedBtn" class="secondary" disabled>So sánh đã chọn</button></div>
+  </div>
+  <div class="data-manage-toolbar">
+    <div>
+      <b>Quản lý nhanh</b>
+      <span id="manageSelectedCount">Đã chọn 0 căn</span>
+    </div>
+    <div class="manage-actions">
+      <button id="selectAllManageBtn" class="secondary" type="button">Chọn tất cả</button>
+      <button id="deleteSelectedBtn" class="danger-btn" type="button" disabled>Xóa căn đã chọn</button>
+      <button id="clearAllDataBtn" class="danger-outline" type="button">Xóa toàn bộ kho KY</button>
+    </div>
+  </div>
+  <div id="propertyGrid" class="property-grid"></div>
+  <div id="resultsPagination" class="dtk-pagination hidden" aria-label="Phân trang kết quả">
+    <div class="dtk-page-size">
+      <span>Hiển thị</span>
+      <select id="resultsPageSize">
+        <option value="10">10</option>
+        <option value="12" selected>12</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+      </select>
+      <span id="resultsRangeText">0–0 / 0 căn</span>
+    </div>
+    <div id="resultsPageButtons" class="dtk-page-buttons"></div>
+  </div>
+</section>
+</div>
+<aside class="ai-assistant-panel" id="aiAssistantPanel">
+  <div class="assistant-head"><div><b>🤖 KY AI ASSISTANT</b><small><i></i> Đang hoạt động</small></div><button id="closeAiChatBtn" type="button">×</button></div>
+  <div class="assistant-tabs"><button class="active">Chat với AI</button><button>Lịch sử hội thoại</button></div>
+  <div class="assistant-scroll">
+    <div class="assistant-message ky-message">
+      <b>Xin chào! Tôi là KY AI.</b>
+      <p>Tôi có thể phân tích nhu cầu, lọc căn phù hợp, so sánh và hỗ trợ viết lại bài đăng.</p>
+      <ul><li>Hiểu nhu cầu tự nhiên</li><li>Xếp hạng căn phù hợp</li><li>Đánh giá tiềm năng</li><li>Viết lại nội dung</li></ul>
+    </div>
+    <div id="assistantNeed" class="assistant-analysis">
+      <b>PHÂN TÍCH NHU CẦU</b>
+      <p>Chưa có yêu cầu cụ thể. Hãy nhập nhu cầu hoặc chọn gợi ý nhanh.</p>
+    </div>
+    <div id="assistantResult" class="assistant-analysis">
+      <b>KẾT QUẢ AI</b>
+      <p>KY đang sẵn sàng phân tích kho dữ liệu.</p>
+    </div>
+    <div class="assistant-quick">
+      <button data-ai-prompt="Căn nào phù hợp nhất với tôi?">Căn nào phù hợp nhất?</button>
+      <button data-ai-prompt="So sánh 3 căn đầu tiên">So sánh 3 căn đầu tiên</button>
+      <button data-ai-prompt="Tìm nhà 8 tỷ ở Sơn Trà, ô tô vào">Nhà 8 tỷ Sơn Trà</button>
+      <button data-ai-prompt="Tìm căn gần biển có dòng tiền">Gần biển, dòng tiền</button>
+    </div>
+  </div>
+  <form id="assistantForm" class="assistant-input">
+    <input id="assistantInput" placeholder="Hỏi KY AI bất kỳ điều gì...">
+    <button type="submit">➤</button>
+  </form>
+  <small class="assistant-note">KY AI có thể mắc lỗi. Hãy kiểm tra thông tin quan trọng.</small>
+</aside>
+</div>
+
+<div class="conversation-title"><div><span class="eyebrow">HỘI THOẠI VỚI KY</span><h2>KY hiểu thông tin chưa đầy đủ và chỉ hỏi thêm khi cần</h2></div><button id="speakToggle" class="secondary" type="button">🔊 KY đọc câu trả lời: Tắt</button></div>
+<div class="chat-shell"><div id="chatMessages" class="chat-messages"><div class="msg ky"><div class="avatar">KY</div><div class="bubble"><b>Xin chào 👋</b><p>Mình là KY. Bạn đang muốn tìm bất động sản như thế nào?</p></div></div></div><div id="quickChoices" class="quick-choices hidden"></div><form id="chatForm" class="chat-input"><textarea id="chatInput" rows="1" placeholder="Ví dụ: Tôi có 7 tỷ, cần nhà Sơn Trà, ô tô vào..." autocomplete="off"></textarea><button type="submit">Gửi</button></form></div>
+<div id="dataStatus" class="data-status">Đang dùng dữ liệu mẫu. Hãy bấm “Nhập dữ liệu Đại Thế Kỷ” để kiểm thử bằng kho thật.</div>
+      </section>
+
+<section id="aiTestLabView" class="view hidden">
+  <div class="test-lab-shell">
+    <div class="test-lab-head">
+      <div>
+        <span class="eyebrow">KHÔNG CẦN API</span>
+        <h1>KY AI – Phòng kiểm thử hội thoại</h1>
+        <p>Mô phỏng cách AI hỏi thêm, hiểu nhu cầu và chỉ đưa căn nhà khi dữ liệu đã đủ.</p>
+      </div>
+      <div class="test-lab-actions">
+        <button id="exportTestDataBtn" class="secondary" type="button">⇩ Xuất dữ liệu test</button>
+        <button id="resetTestLabBtn" class="secondary" type="button">Đặt lại</button>
+        <button id="backFromTestLabBtn" class="primary" type="button">Về trang chủ</button>
+      </div>
+    </div>
+
+    <div class="test-lab-grid">
+      <section class="test-chat-panel">
+        <div class="test-panel-title">
+          <div><b>💬 Hội thoại mô phỏng</b><small>KY hỏi từng bước, chưa đủ thông tin thì chưa đề xuất căn.</small></div>
+          <span id="testReadyBadge" class="test-ready-badge waiting">Chưa đủ nhu cầu</span>
+        </div>
+        <div id="testConversation" class="test-conversation"></div>
+        <div class="test-chat-composer">
+          <input id="testChatInput" placeholder="Ví dụ: Tôi có 25 tỷ cần tư vấn">
+          <button id="sendTestChatBtn" type="button">Gửi</button>
+        </div>
+        <div class="test-quick-prompts">
+          <button type="button" data-test-prompt="Tôi có 25 tỷ cần tư vấn">25 tỷ cần tư vấn</button>
+          <button type="button" data-test-prompt="Tôi muốn đầu tư">Mua để đầu tư</button>
+          <button type="button" data-test-prompt="Ưu tiên Sơn Trà">Ưu tiên Sơn Trà</button>
+          <button type="button" data-test-prompt="Cần mặt tiền kinh doanh">Mặt tiền kinh doanh</button>
+        </div>
+      </section>
+
+      <aside class="test-state-panel">
+        <div class="test-panel-title">
+          <div><b>🧠 Trạng thái AI hiểu</b><small>Dữ liệu có cấu trúc để sau này gửi sang API.</small></div>
+        </div>
+        <div id="testRequirementState" class="test-requirement-state"></div>
+        <div class="test-state-actions">
+          <button id="applyTestSearchBtn" type="button" disabled>Áp dụng & tìm căn</button>
+          <button id="downloadConversationBtn" type="button">Xuất hội thoại JSON</button>
+        </div>
+      </aside>
+    </div>
+
+    <section class="test-results-section">
+      <div class="test-results-head">
+        <div>
+          <b>🏠 Kết quả thử nghiệm</b>
+          <small id="testResultsCaption">AI đang chờ thêm thông tin, chưa đề xuất căn.</small>
+        </div>
+        <span id="testResultCount">0 căn</span>
+      </div>
+      <div id="testResultsGrid" class="property-grid test-results-grid"></div>
+    </section>
+
+    <section class="test-data-section">
+      <div class="test-results-head">
+        <div><b>📦 Dữ liệu dùng để test</b><small>Nhập JSON/CSV hoặc dùng toàn bộ kho hiện có.</small></div>
+      </div>
+      <div class="test-data-toolbar">
+        <input id="testDataFile" type="file" accept=".json,.csv,text/csv,application/json">
+        <button id="loadCurrentDatasetBtn" type="button">Dùng kho hiện tại</button>
+        <button id="downloadSampleDataBtn" type="button">Tải dữ liệu mẫu</button>
+        <span id="testDataStatus">Chưa nạp dữ liệu test.</span>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section id="detailView" class="view"><button class="back" data-view="home">← Quay lại kết quả</button><div id="detailContent"></div></section>
+<section id="compareView" class="view"><div class="section-head"><div><span class="eyebrow">KY COMPARE</span><h2>So sánh bất động sản</h2></div></div><div id="compareContent" class="compare-empty">Chọn 2 căn trong kết quả tìm kiếm để KY so sánh.</div></section>
+<section id="proView" class="view"><div class="pro-hero"><span class="eyebrow">KY PRO</span><h1>Chào Sếp.</h1><p>Bản demo bảng điều hành dành riêng cho Nhà Phố Đà Nẵng.</p></div><div class="stats"><article><span>🏠</span><b>218</b><small>Căn đang quản lý</small></article><article><span>👥</span><b>12</b><small>Khách mới hôm nay</small></article><article><span>🔥</span><b>5</b><small>Căn được quan tâm</small></article><article><span>📞</span><b>7</b><small>Khách cần phản hồi</small></article></div><div class="pro-grid"><article class="panel"><h3>KY gợi ý hôm nay</h3><ul><li>Gọi lại 3 khách đang tìm nhà 6–8 tỷ tại Sơn Trà.</li><li>Ưu tiên giới thiệu căn KY-001 vì đạt điểm phù hợp cao nhất.</li><li>Cập nhật trạng thái 4 căn chưa được xác nhận trong 7 ngày.</li></ul></article><article class="panel"><h3>Nhu cầu nổi bật</h3><div class="bars"><label>Nhà ô tô <i style="width:88%"></i></label><label>Gần biển <i style="width:76%"></i></label><label>6–8 tỷ <i style="width:68%"></i></label><label>Mặt tiền <i style="width:49%"></i></label></div></article></div></section></main>
+<button id="floatingKy" class="floating-ky">KY</button><div id="floatingPanel" class="floating-panel hidden"><b>Hỏi KY</b><p>Mình có thể giúp bạn tìm nhà, phân tích hoặc so sánh căn.</p><button data-view="home">Tìm nhà ngay</button></div></div>
+
+
+
+<div id="approvalQueueModal" class="edit-modal hidden">
+  <div class="edit-dialog approval-queue-dialog">
+    <div class="edit-dialog-head">
+      <div>
+        <b>🔔 Hàng chờ duyệt ảnh</b>
+        <small>Những căn đang có khách xem nhưng album chưa được duyệt.</small>
+      </div>
+      <button id="closeApprovalQueue" type="button">×</button>
+    </div>
+    <div class="approval-summary">
+      <div><b id="approvalWaitingProperties">0</b><small>Căn chờ duyệt</small></div>
+      <div><b id="approvalWaitingImages">0</b><small>Ảnh cần xem</small></div>
+      <div><b id="approvalActiveViewers">0</b><small>Khách đang xem</small></div>
+    </div>
+    <div id="approvalQueueList" class="approval-queue-list"></div>
+  </div>
+</div>
+
+<div id="readerVerifyModal" class="edit-modal hidden">
+  <div class="edit-dialog reader-dialog">
+    <div class="edit-dialog-head">
+      <div><b>🧠 KY AI Reader + Verify</b><small>Đọc nội dung, đối chiếu tiêu đề và chuẩn hóa hồ sơ bất động sản.</small></div>
+      <button id="closeReaderVerify" type="button">×</button>
+    </div>
+    <input id="readerPropertyId" type="hidden">
+    <div class="reader-flow">
+      <div class="reader-flow-step active"><span>1</span><b>AI Reader</b><small>Đọc nội dung</small></div>
+      <div class="reader-flow-arrow">→</div>
+      <div class="reader-flow-step"><span>2</span><b>AI Verify</b><small>Đối chiếu</small></div>
+      <div class="reader-flow-arrow">→</div>
+      <div class="reader-flow-step"><span>3</span><b>AI Normalize</b><small>Chuẩn hóa</small></div>
+    </div>
+    <div id="readerProgress" class="vision-progress hidden"><div><i id="readerProgressBar"></i></div><span id="readerProgressText">Đang đọc nội dung...</span></div>
+    <div class="reader-grid">
+      <section class="reader-source">
+        <div class="reader-section-head"><b>BÀI ĐĂNG GỐC</b><button id="copyOriginalArticle" type="button">Sao chép</button></div>
+        <div id="readerOriginalTitle" class="reader-original-title"></div>
+        <pre id="readerOriginalArticle"></pre>
+      </section>
+      <section class="reader-result">
+        <div class="reader-section-head"><b>DỮ LIỆU AI TRÍCH XUẤT</b><span id="readerConfidenceBadge" class="verify-badge">Đang phân tích</span></div>
+        <div id="readerExtractedFields" class="reader-fields"></div>
+      </section>
+    </div>
+    <section class="verify-panel"><div class="reader-section-head"><b>AI VERIFY</b><small>Kiểm tra mức độ khớp giữa tiêu đề, nội dung và dữ liệu.</small></div><div id="readerVerifyRows" class="verify-rows"></div></section>
+    <section class="normalize-panel">
+      <div class="reader-section-head"><b>HỒ SƠ ĐÃ CHUẨN HÓA</b><span class="source-badge">Trích xuất từ nội dung</span></div>
+      <label>Tiêu đề AI<input id="normalizedTitleInput" type="text"></label>
+      <label>Địa chỉ chuẩn<input id="normalizedAddressInput" type="text"></label>
+      <label>Nội dung chuẩn hóa<textarea id="normalizedArticleInput" rows="11"></textarea></label>
+    </section>
+    <div class="edit-actions"><button id="readerAnalyzeAgain" class="secondary" type="button">🤖 Phân tích lại</button><button id="readerApplyChanges" class="primary-save" type="button">Áp dụng vào hồ sơ</button></div>
+  </div>
+</div>
+
+<div id="visionSettingsModal" class="edit-modal hidden">
+  <div class="edit-dialog vision-settings-dialog">
+    <div class="edit-dialog-head">
+      <div>
+        <b>🖼 Cài đặt lọc ảnh KY Vision</b>
+        <small>Lọc theo từng căn, lưu cache và không xóa ảnh gốc.</small>
+      </div>
+      <button id="closeVisionSettings" type="button">×</button>
+    </div>
+    <div id="browserVisionNotice" class="browser-vision-notice">
+      KY Vision dùng bộ nhận diện khuôn mặt có sẵn trong Chrome. Nếu trình duyệt không hỗ trợ, ảnh sẽ chuyển sang “Cần duyệt”, không tự lọc ngược.
+    </div>
+    <div class="vision-setting-list">
+      <label><input id="settingAutoOnOpen" type="checkbox" checked> Tự động kiểm tra ảnh khi khách mở căn chưa được xử lý</label>
+      <label><input id="settingOnlyNew" type="checkbox" checked> Chỉ xử lý lại khi danh sách ảnh thay đổi</label>
+      <label><input id="settingAutoCover" type="checkbox" checked> Tự chọn ảnh bìa từ ảnh đạt yêu cầu</label>
+      <label><input id="settingKeepOriginal" type="checkbox" checked disabled> Luôn giữ ảnh gốc</label>
+      <label><input id="settingHideExcluded" type="checkbox" checked> Ẩn ảnh bị loại khỏi album khách xem</label>
+      <label><input id="settingStrictCustomerMode" type="checkbox" checked> Chế độ khách an toàn: ảnh nghi selfie/người phải được duyệt mới hiển thị</label>
+      <label><input id="settingNeverUseFaceCover" type="checkbox" checked> Không bao giờ dùng ảnh có khuôn mặt làm ảnh bìa khi chưa duyệt</label>
+    </div>
+    <div class="edit-actions">
+      <button id="saveVisionSettings" class="primary-save" type="button">Lưu cài đặt</button>
+    </div>
+  </div>
+</div>
+
+<div id="visionFilterModal" class="edit-modal hidden">
+  <div class="edit-dialog vision-dialog">
+    <div class="edit-dialog-head">
+      <div>
+        <b id="visionModalTitle">🖼 KY Vision – Lọc ảnh</b>
+        <small id="visionModalSubtitle">Ảnh gốc luôn được giữ. Bạn có thể sửa mọi đề xuất trước khi lưu.</small>
+      </div>
+      <button id="closeVisionModal" type="button">×</button>
+    </div>
+    <input id="visionPropertyId" type="hidden">
+    <div id="visionProgress" class="vision-progress hidden">
+      <div><i id="visionProgressBar"></i></div>
+      <span id="visionProgressText">Đang phân tích ảnh...</span>
+    </div>
+    <div id="visionSummary" class="vision-summary"></div>
+    <div class="vision-toolbar">
+      <button id="visionRunAgain" class="secondary" type="button">🤖 Quét lại ảnh</button>
+      <button id="visionAcceptAll" class="secondary" type="button">✓ Giữ tất cả</button>
+      <button id="visionShowHidden" class="secondary" type="button">👁 Xem ảnh đã ẩn</button>
+    </div>
+    <div id="visionImageGrid" class="vision-image-grid"></div>
+    <div class="edit-actions">
+      <button id="visionRestoreOriginal" class="secondary" type="button">Khôi phục ảnh gốc</button>
+      <button id="visionSave" class="primary-save" type="button">Duyệt & lưu bộ ảnh</button>
+    </div>
+  </div>
+</div>
+
+<div id="editPropertyModal" class="edit-modal hidden">
+  <div class="edit-dialog">
+    <div class="edit-dialog-head">
+      <div><b id="editModalTitle">Sửa bài đăng</b><small>Chỉnh thủ công hoặc để KY AI viết lại, sau đó lưu vào Demo.</small></div>
+      <button id="closeEditModal" type="button">×</button>
+    </div>
+    <input id="editPropertyId" type="hidden">
+    <label>Tiêu đề<input id="editTitleInput" type="text"></label>
+    <label>Nội dung bài đăng<textarea id="editArticleInput" rows="13"></textarea></label>
+    <div class="edit-actions">
+      <button id="rewriteInsideModal" class="secondary" type="button">🤖 Viết lại bằng AI</button>
+      <button id="savePropertyEdit" class="primary-save" type="button">Lưu thay đổi</button>
+    </div>
+  </div>
+</div>
+<script>window.KY_PROPERTIES=[{"id": "KY-001", "title": "Nhà 3 tầng gần biển Mỹ Khê", "area": "75 m²", "price": "6,8 tỷ", "location": "Sơn Trà, Đà Nẵng", "road": "Ô tô", "bedrooms": 3, "score": 95, "tags": ["Gần biển", "Ô tô", "3 phòng ngủ"], "reasons": ["Nằm trong ngân sách", "Đủ 3 phòng ngủ", "Đường ô tô", "Khu vực Sơn Trà"], "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80", "cautions": ["Chưa có dữ liệu xác nhận pháp lý", "Cần kiểm tra tình trạng nội thất thực tế"]}, {"id": "KY-002", "title": "Nhà mặt tiền kinh doanh Hải Châu", "area": "82 m²", "price": "7,6 tỷ", "location": "Hải Châu, Đà Nẵng", "road": "Mặt tiền", "bedrooms": 4, "score": 92, "tags": ["Mặt tiền", "Kinh doanh", "Trung tâm"], "reasons": ["Phù hợp ở kết hợp kinh doanh", "Vị trí trung tâm", "Diện tích tốt", "Trong khoảng ngân sách mở rộng"], "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1200&q=80", "cautions": ["Giá cao hơn mức 7 tỷ", "Cần xác minh lưu lượng kinh doanh thực tế"]}, {"id": "KY-003", "title": "Nhà kiệt ô tô khu An Thượng", "area": "68 m²", "price": "6,3 tỷ", "location": "Ngũ Hành Sơn, Đà Nẵng", "road": "Kiệt ô tô", "bedrooms": 3, "score": 89, "tags": ["An Thượng", "Kiệt ô tô", "Gần biển"], "reasons": ["Giá thấp hơn ngân sách", "Đủ phòng ngủ", "Gần biển", "Phù hợp gia đình nhỏ"], "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80", "cautions": ["Không phải mặt tiền", "Cần kiểm tra độ rộng lối vào thực tế"]}, {"id": "KY-004", "title": "Nhà mới 4 tầng gần cầu Rồng", "area": "72 m²", "price": "7,2 tỷ", "location": "Hải Châu, Đà Nẵng", "road": "Ô tô", "bedrooms": 4, "score": 87, "tags": ["Nhà mới", "Ô tô", "Trung tâm"], "reasons": ["Kết cấu 4 tầng", "Đường ô tô", "Gần trung tâm", "Phù hợp gia đình đông người"], "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80", "cautions": ["Vượt nhẹ mức 7 tỷ", "Chưa có dữ liệu xác nhận khoảng cách chính xác"]}]</script><script src="app.js"></script>
+<nav class="mobile-app-nav" aria-label="Điều hướng ứng dụng">
+  <button type="button" data-mobile-view="home" class="active"><span>🏠</span><small>Trang chủ</small></button>
+  <button type="button" data-mobile-view="aiTest"><span>🤖</span><small>AI</small></button>
+  <button type="button" id="mobileApprovalBtn"><span>🔔</span><small>Duyệt ảnh</small><i id="mobileApprovalCount">0</i></button>
+  <button type="button" id="mobileSavedBtn"><span>❤️</span><small>Đã lưu</small></button>
+  <button type="button" id="mobileAccountBtn"><span>👤</span><small>Tài khoản</small></button>
+</nav>
+<div id="pwaInstallToast" class="pwa-install-toast hidden">
+  <div>
+    <b>Cài KY Đại Kỷ Nguyên</b>
+    <small>Mở nhanh như một ứng dụng trên điện thoại.</small>
+  </div>
+  <button id="pwaInstallToastBtn" type="button">Cài ngay</button>
+  <button id="dismissPwaToastBtn" type="button">×</button>
+</div>
+
+</body></html>

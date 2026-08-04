@@ -1,0 +1,24 @@
+KY ĐẠI KỶ NGUYÊN PWA V3.0
+
+LƯU Ý:
+Không mở bằng đường dẫn C:/.../index.html nếu muốn cài trên điện thoại.
+PWA cần website HTTPS.
+
+CÁCH TEST NHANH BẰNG NETLIFY DROP:
+1. Giải nén file ZIP.
+2. Mở https://app.netlify.com/drop trên máy tính.
+3. Kéo nguyên thư mục demo vào trang Netlify Drop.
+4. Chờ khoảng 30 giây, Netlify sẽ cấp một đường link https://....netlify.app
+5. Mở đường link đó trên điện thoại.
+
+CÀI TRÊN ANDROID:
+- Mở bằng Chrome.
+- Bấm nút “Cài ứng dụng” trên KY hoặc menu Chrome → Cài đặt ứng dụng.
+
+CÀI TRÊN IPHONE:
+- Mở bằng Safari.
+- Bấm Chia sẻ.
+- Chọn “Thêm vào Màn hình chính”.
+
+TÊN MIỀN CHÍNH THỨC SAU NÀY:
+ky.daikynguyen.ai
