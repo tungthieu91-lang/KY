@@ -1,0 +1,72 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b63e5"><title>KY AI – Tìm nhà thông minh</title><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="app.css"><link rel="stylesheet" href="v16-features.css"></head><body><div id="kySplash" class="kySplash" aria-modal="true" role="dialog"><div class="kySplashCard">
+<button id="skipSplash" class="skipSplash" type="button" aria-label="Bỏ qua" onclick="return window.KYEnterHome ? window.KYEnterHome(event) : (document.getElementById('kySplash').style.display='none',false)">×</button><div class="kyMascot" aria-label="Linh vật KY AI đang vẫy tay chào">
+  <div class="mascotBubble">Xin chào! Tôi là KY AI 👋</div>
+  <svg class="mascotSvg" viewBox="0 0 240 190" role="img" aria-hidden="true">
+    <defs>
+      <linearGradient id="kyShirt" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2285ff"/><stop offset="1" stop-color="#075bd1"/></linearGradient>
+      <linearGradient id="kySkin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd5b0"/><stop offset="1" stop-color="#efad7e"/></linearGradient>
+      <filter id="kyShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#063b82" flood-opacity=".25"/></filter>
+    </defs>
+    <g class="mascotBob" filter="url(#kyShadow)">
+      <ellipse cx="120" cy="176" rx="56" ry="9" fill="#0a4b9d" opacity=".16"/>
+      <g class="mascotBody">
+        <path d="M72 177c2-37 18-57 48-57s46 20 48 57" fill="url(#kyShirt)"/>
+        <path d="M105 123l15 18 15-18" fill="#fff" opacity=".95"/>
+        <rect x="105" y="143" width="30" height="23" rx="7" fill="#fff" opacity=".96"/>
+        <text x="120" y="159" text-anchor="middle" fill="#0966dc" font-family="Arial,sans-serif" font-size="13" font-weight="900">KY</text>
+      </g>
+      <g class="mascotHead">
+        <circle cx="120" cy="77" r="47" fill="url(#kySkin)"/>
+        <path d="M78 72c-2-31 17-51 43-51 28 0 45 18 43 50-12-17-27-22-46-22-17 0-29 8-40 23z" fill="#17263d"/>
+        <path d="M83 64c9-27 29-37 53-33" fill="none" stroke="#293b56" stroke-width="10" stroke-linecap="round"/>
+        <g class="mascotEyes"><ellipse cx="103" cy="79" rx="5" ry="7" fill="#17263d"/><ellipse cx="138" cy="79" rx="5" ry="7" fill="#17263d"/></g>
+        <path d="M106 101c9 9 20 9 29 0" fill="none" stroke="#a84d45" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="94" cy="95" r="7" fill="#ec8f8d" opacity=".38"/><circle cx="147" cy="95" r="7" fill="#ec8f8d" opacity=".38"/>
+      </g>
+      <g class="mascotLeftArm"><path d="M79 132c-20 8-26 23-27 38" fill="none" stroke="#0b67dc" stroke-width="19" stroke-linecap="round"/><circle cx="51" cy="171" r="10" fill="url(#kySkin)"/></g>
+      <g class="mascotWave">
+        <path d="M160 132c14-13 20-31 18-49" fill="none" stroke="#0b67dc" stroke-width="19" stroke-linecap="round"/>
+        <path d="M178 84c8-7 12-17 13-28" fill="none" stroke="url(#kySkin)" stroke-width="16" stroke-linecap="round"/>
+        <circle cx="192" cy="52" r="11" fill="url(#kySkin)"/>
+        <path d="M190 45l-6-15M195 44l3-16M199 47l10-12" stroke="#efb083" stroke-width="5" stroke-linecap="round"/>
+      </g>
+    </g>
+  </svg>
+</div><div class="splashLogo miniLogo">KY</div>
+<h1>KY AI</h1><h2>ĐẠI KỶ NGUYÊN BẤT ĐỘNG SẢN</h2><div class="splashLine"></div>
+<p class="splashLead">Không chỉ tìm nhà.</p><p class="splashPromise">KY giúp bạn chọn đúng ngôi nhà.</p>
+<p class="splashAi">AI phân tích • AI kiểm chứng • AI đồng hành</p><div class="splashLine"></div>
+<ul><li>5.003+ căn đã được AI chuẩn hóa</li><li>Đối chiếu địa chỉ cũ &amp; địa chỉ mới</li>
+<li>AI định giá tham khảo</li><li>AI phân tích ưu điểm &amp; rủi ro</li><li>AI đề xuất căn phù hợp nhất</li></ul>
+<div class="splashSignature"><b>KY không bán nhà.</b><span>KY giúp bạn tránh mua nhầm nhà.</span></div>
+<button id="startSplash" class="startSplash" type="button" onclick="return window.KYEnterHome ? window.KYEnterHome(event) : (document.getElementById('kySplash').style.display='none',false)">BẮT ĐẦU CÙNG KY</button></div></div>
+<header><div class="brand"><span>KY</span><div><b>KY AI</b><small>ĐẠI KỶ NGUYÊN BẤT ĐỘNG SẢN</small></div></div><nav><button id="homeBtn">Tìm nhà</button><button id="compareBtn">So sánh <span id="compareCount">0</span></button><button id="savedBtn">Đã lưu</button><button id="themeBtn">◐</button></nav></header>
+<main><section class="hero"><h1>AI hiểu bạn trước khi tìm nhà.</h1><p>Nhập một phần nhu cầu cũng được. Những tiêu chí chưa nhập sẽ được xem là tùy chọn.</p></section>
+<section id="topAd" class="topAd">
+      <div><small>ĐỐI TÁC ĐỀ XUẤT</small><b id="topAdTitle">Hỗ trợ vay mua nhà</b><span id="topAdText">Tư vấn phương án tài chính phù hợp nhu cầu.</span></div>
+      <button id="topAdCta">Tìm hiểu</button>
+    </section>
+    <section class="search"><div class="query"><input id="q" placeholder="Ví dụ: đường Trương Chinh dưới 5 tỷ, 4 phòng ngủ"><button id="go">✨ Lọc AI</button></div><div class="filters"><select id="district" aria-label="Chọn khu vực"><option value="">Tất cả khu vực</option></select><input id="maxPrice" type="number" inputmode="decimal" placeholder="Giá đến (tỷ)"><input id="minArea" type="number" inputmode="decimal" placeholder="Diện tích từ (m²)"><input id="beds" type="number" inputmode="numeric" placeholder="Phòng ngủ từ"></div><div class="quick" id="quick"><button data-price="3">&lt; 3 tỷ</button><button data-price="5">5 tỷ</button><button data-price="8">8 tỷ</button><button data-price="10">10 tỷ</button><button data-price="15">15 tỷ</button><button data-price="20">20 tỷ</button><button data-price="30">30 tỷ</button><button data-min-price="30">Trên 30 tỷ</button></div><div id="summary" class="summary">Đang tải kho dữ liệu…</div></section>
+<section id="resultsSection"><div class="sectionHead"><div><small>KHO BẤT ĐỘNG SẢN KY</small><h2 id="title">Tất cả sản phẩm bất động sản</h2></div><span id="count">0 căn</span></div><div id="grid" class="grid"></div><button id="more" class="more">Xem thêm</button></section>
+<section id="nativeAd" class="nativeAd">
+      <div><small>QUẢNG CÁO</small><h3 id="nativeAdTitle">Giải pháp nội thất cho nhà mới</h3><p id="nativeAdText">Thiết kế, thi công và hoàn thiện theo ngân sách.</p></div>
+      <button id="nativeAdCta">Xem ưu đãi</button>
+    </section>
+    <section id="discovery"><div class="railBlock"><h3>🔥 Căn nổi bật</h3><div id="hot" class="rail"></div></div><div class="railBlock"><h3>🆕 Căn mới nhất</h3><div id="newest" class="rail"></div></div></section></main>
+<div id="compareDrawer" class="compareDrawer hidden"><div><b>So sánh căn</b><span id="compareText">Chưa chọn căn</span></div><button id="openCompare">Mở</button><button id="clearCompare">Xóa</button></div>
+    <div id="versionBadge" class="versionBadge">V17.1 • COMPACT STABLE</div><div id="leadModal" class="leadModal hidden">
+      <form id="leadForm">
+        <button type="button" id="closeLead">×</button>
+        <h2>Nhận tư vấn căn phù hợp</h2><p class="leadOptional">Không bắt buộc. Bấm dấu × để đóng và tiếp tục xem toàn bộ website.</p>
+        <input id="leadName" required placeholder="Họ tên">
+        <input id="leadPhone" required inputmode="tel" placeholder="Số điện thoại">
+        <select id="leadDistrict"><option value="">Khu vực quan tâm</option></select>
+        <select id="leadBudget"><option value="">Ngân sách</option><option>&lt; 3 tỷ</option><option>3–5 tỷ</option><option>5–10 tỷ</option><option>10–20 tỷ</option><option>&gt; 20 tỷ</option></select>
+        <textarea id="leadNeed" placeholder="Nhu cầu chi tiết"></textarea>
+        <button class="primaryLead">Lưu nhu cầu</button>
+        <div class="leadQuick"><a href="tel:0935202777">Gọi 0935 202 777</a><a href="https://zalo.me/0935202777" target="_blank">Chat Zalo</a></div>
+      </form>
+    </div>
+    <div id="modal" class="modal hidden"><div class="dialog"><button class="close">×</button><div id="detail"></div></div></div>
+<nav class="bottom"><button data-act="home">🏠<span>Trang chủ</span></button><button data-act="ai">🤖<span>AI</span></button><button data-act="saved">❤️<span>Đã lưu</span></button><button data-act="compare">⚖️<span>So sánh</span></button><button data-act="account">👤<span>Tài khoản</span></button></nav>
+<script src="splash-gate.js"></script><script src="locations.js"></script><script src="app.js"></script><script defer src="v16-features.js"></script></body></html>

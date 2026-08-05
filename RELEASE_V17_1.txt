@@ -1,0 +1,6 @@
+KY AI V17.1 COMPACT STABLE
+- Based on V17 Wrapped V16 stable
+- CSS/layout only
+- Price and area blocks reduced by about 30%
+- Save/selected/compare text reduced by about 50%
+- All existing functions and data flow preserved

@@ -1,0 +1,45 @@
+{
+  "rules": [
+    {
+      "whenAny": [
+        "đồng kè",
+        "dong ke"
+      ],
+      "replaceShort": [
+        "Kè"
+      ],
+      "standard": "Đồng Kè"
+    },
+    {
+      "whenAny": [
+        "phó đức chính",
+        "pho duc chinh"
+      ],
+      "replaceShort": [
+        "Chính",
+        "Đức Chính"
+      ],
+      "standard": "Phó Đức Chính"
+    },
+    {
+      "whenAny": [
+        "lê quý đôn",
+        "le quy don"
+      ],
+      "replaceShort": [
+        "Quý Đôn"
+      ],
+      "standard": "Lê Quý Đôn"
+    },
+    {
+      "whenAny": [
+        "thanh lương 24",
+        "thanh luong 24"
+      ],
+      "replaceShort": [
+        "Lương 24"
+      ],
+      "standard": "Thanh Lương 24"
+    }
+  ]
+}

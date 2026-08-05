@@ -1,0 +1,9 @@
+{
+  "name": "KY AI V16 – Ổn định và nhanh",
+  "short_name": "KY AI V16",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f7fc",
+  "theme_color": "#0b63e5",
+  "icons": []
+}

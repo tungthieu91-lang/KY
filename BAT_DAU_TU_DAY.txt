@@ -1,0 +1,26 @@
+KY AI FINAL COMPLETE – NỀN V10
+
+1. Đưa nguyên file ZIP này lên Vercel bằng chức năng chọn file.
+2. Trang khách:
+   https://ten-project.vercel.app
+3. Trang quản trị:
+   https://ten-project.vercel.app/admin.html
+
+Tài khoản quản trị thử nghiệm:
+- Tài khoản: admin
+- Mật khẩu: KY2026
+
+Đã xử lý:
+- Bấm dấu X đóng popup và tiếp tục vào website.
+- Chạm vùng tối hoặc nhấn Escape cũng đóng popup.
+- Không bị khóa cuộn sau khi đóng popup.
+- Các nút Trang chủ, AI, Đã lưu, So sánh, Tài khoản hoạt động.
+- Trang chi tiết có nút đóng và quay lại bình thường.
+- Có thông báo lỗi thay vì màn hình trắng.
+- Giữ nguyên 5.003 căn và cách tải nhẹ của V10.
+- Có Admin, CRM cục bộ, quảng cáo, thống kê, sửa/xóa mềm/khôi phục.
+
+Lưu ý:
+Đây là bản web tĩnh. CRM và thay đổi Admin lưu trong trình duyệt hiện tại.
+Muốn dữ liệu khách nhập trên iPhone xuất hiện trong Admin trên máy tính khác
+thì cần kết nối database/backend trực tuyến.
