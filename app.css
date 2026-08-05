@@ -117,3 +117,42 @@ body.noScroll .leadModal,body.noScroll .modal{touch-action:auto}
   .primaryFacts strong{font-size:17px!important}
   .actions .save,.actions .compareBtn{font-size:8px!important}
 }
+
+/* =========================================================
+   KY AI V17.2 — DESKTOP/LAPTOP RESPONSIVE LAYOUT
+   Desktop-only presentation upgrade. Mobile <=760px unchanged.
+   ========================================================= */
+@media (min-width:761px){
+  main{width:100%;max-width:1440px;padding-left:24px;padding-right:24px}
+
+  /* Keep every existing action, but present them clearly on wide screens. */
+  .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .actions button{min-width:0;min-height:42px;padding:9px 7px;line-height:1.15}
+  .actions .view{grid-column:1/-1}
+  .actions [data-amenities]{grid-column:1}
+  .actions [data-location]{grid-column:2}
+
+  .primaryFacts strong{font-size:clamp(21px,1.65vw,28px)}
+  .card h3{min-height:45px}
+
+  /* HOT section uses a real responsive grid instead of squeezing 6 cards. */
+  .rail{display:grid;overflow:visible;align-items:stretch}
+  .rail .card{min-width:0;max-width:none;width:auto}
+}
+
+/* Tablet: 2 cards per row. */
+@media (min-width:761px) and (max-width:900px){
+  main{max-width:900px;padding-left:18px;padding-right:18px}
+  .grid,.rail{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+}
+
+/* Laptop: 3 cards per row. */
+@media (min-width:901px) and (max-width:1199px){
+  main{max-width:1180px}
+  .grid,.rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+}
+
+/* Large desktop: 4 cards per row. */
+@media (min-width:1200px){
+  .grid,.rail{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+}
