@@ -1,0 +1,8 @@
+KY AI V16 FINAL
+- Lõi ổn định V14.2
+- Giá và diện tích hiển thị lớn, đậm, ưu tiên trên thẻ tin
+- Nút Vị trí mở Google Maps theo tên đường + quận + Đà Nẵng
+- Tiện ích AI bán kính tham chiếu 2 km
+- So sánh 10 căn: giá đứng đầu, chỉ lấy cùng loại BĐS và chênh giá tối đa 20%
+- Tên căn trong bảng so sánh bấm để mở hồ sơ ngay
+- Giữ cơ chế ẩn ảnh riêng tư/selfie

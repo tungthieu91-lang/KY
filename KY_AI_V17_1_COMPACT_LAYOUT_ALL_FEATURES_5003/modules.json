@@ -1,0 +1,12 @@
+{
+  "version": "15.0-production",
+  "score": true,
+  "hot": true,
+  "smartFeed": true,
+  "filters": true,
+  "crm": true,
+  "compareAI": true,
+  "amenities": true,
+  "verified": true,
+  "smartAddress": true
+}

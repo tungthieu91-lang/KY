@@ -1,0 +1,24 @@
+{
+  "aliases": [
+    {
+      "from": "Mặt phố Quý Đôn",
+      "to": "Mặt phố Lê Quý Đôn",
+      "confidence": 0.99
+    },
+    {
+      "from": "Quý Đôn",
+      "to": "Lê Quý Đôn",
+      "confidence": 0.99
+    },
+    {
+      "from": "Mặt phố Lương 24",
+      "to": "Mặt phố Thanh Lương 24",
+      "confidence": 0.99
+    },
+    {
+      "from": "Lương 24",
+      "to": "Thanh Lương 24",
+      "confidence": 0.99
+    }
+  ]
+}
