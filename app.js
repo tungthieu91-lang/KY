@@ -313,7 +313,69 @@ function filter(){
 function card(x,small=false){let is=saved.has(x.id);return `<article class="card" data-id="${esc(x.id)}"><div class="coverWrap"><img loading="lazy" data-privacy data-property-id="${esc(x.id)}" src="${esc(x.im)}" alt="${esc(x.t)}" onerror="this.style.visibility='hidden'"></div><div class="body"><h3>${esc(x.t)}</h3><div class="loc"><span>📍 Địa chỉ cũ: ${esc([x.st,x.d].filter(Boolean).join(', '))}</span>${newAddressHTML(x)}</div><div class="primaryFacts"><div class="primaryPrice"><small>GIÁ BÁN</small><strong>${esc(x.pt||x.p+' tỷ')}</strong></div><div class="primaryArea"><small>DIỆN TÍCH</small><strong>${esc(x.a)} m²</strong></div></div>${x.b?`<div class="secondaryFact">🛏 ${x.b} phòng ngủ</div>`:''}<div class="actions"><button class="save" data-save>${is?'❤️ Đã lưu':'♡ Lưu'}</button><button class="compareBtn" data-compare>${compare.has(x.id)?'✓ Đã chọn':'⚖️ So sánh'}</button><button class="view" data-view>Xem hồ sơ</button></div></div></article>`}
 function bind(root=document){$$('[data-view]',root).forEach(b=>b.onclick=()=>openDetail(b.closest('.card').dataset.id));$$('[data-save]',root).forEach(b=>b.onclick=()=>toggleSave(b.closest('.card').dataset.id,b));$$('[data-compare]',root).forEach(b=>b.onclick=()=>toggleCompare(b.closest('.card').dataset.id,b))}
 function render(reset=false){if(reset){shown=0;$('#grid').innerHTML=''}let batch=RESULTS.slice(shown,shown+30);$('#grid').insertAdjacentHTML('beforeend',batch.map(x=>card(x)).join(''));shown+=batch.length;$('#count').textContent=`${RESULTS.length.toLocaleString('vi-VN')} căn`;$('#more').style.display=shown<RESULTS.length?'block':'none';bind($('#grid'));scanVisiblePrivacy($('#grid'))}
-function renderRails(){let hot=[...ALL].sort((a,b)=>(Number(b.f?.corner)+Number(b.f?.frontage)+Number(b.f?.business))-(Number(a.f?.corner)+Number(a.f?.frontage)+Number(a.f?.business))).slice(0,15),news=[...ALL].sort((a,b)=>String(b.u).localeCompare(String(a.u))).slice(0,15);$('#hot').innerHTML=hot.map(x=>card(x,true)).join('');$('#newest').innerHTML=news.map(x=>card(x,true)).join('');bind($('#discovery'));scanVisiblePrivacy($('#discovery'));[$('#hot'),$('#newest')].forEach(r=>{let pause=false;r.onpointerdown=()=>pause=true;r.onpointerup=()=>setTimeout(()=>pause=false,1500);setInterval(()=>{if(!pause){r.scrollLeft+=1;if(r.scrollLeft>=r.scrollWidth-r.clientWidth-2)r.scrollLeft=0}},30)})}
+function renderRails() {
+  const hot = [...ALL]
+    .sort(
+      (a, b) =>
+        Number(b.f?.corner) +
+        Number(b.f?.frontage) +
+        Number(b.f?.business) -
+        (Number(a.f?.corner) +
+          Number(a.f?.frontage) +
+          Number(a.f?.business))
+    )
+    .slice(0, 15);
+
+  const news = [...ALL]
+    .sort((a, b) => String(b.u).localeCompare(String(a.u)))
+    .slice(0, 15);
+
+  const hotRail = $('#hot');
+  const newestRail = $('#newest');
+
+  hotRail.innerHTML = hot.map((x) => card(x, true)).join('');
+  newestRail.innerHTML = news.map((x) => card(x, true)).join('');
+
+  bind($('#discovery'));
+  scanVisiblePrivacy($('#discovery'));
+
+  [hotRail, newestRail].forEach((rail) => {
+    if (!rail || rail.dataset.autoScrollReady === '1') return;
+
+    rail.dataset.autoScrollReady = '1';
+
+    let paused = false;
+
+    const pause = () => {
+      paused = true;
+    };
+
+    const resume = () => {
+      setTimeout(() => {
+        paused = false;
+      }, 1200);
+    };
+
+    rail.addEventListener('pointerdown', pause);
+    rail.addEventListener('pointerup', resume);
+    rail.addEventListener('pointercancel', resume);
+    rail.addEventListener('mouseenter', pause);
+    rail.addEventListener('mouseleave', resume);
+
+    setInterval(() => {
+      if (paused || rail.scrollWidth <= rail.clientWidth) return;
+
+      rail.scrollLeft += 1;
+
+      if (rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 2) {
+        rail.scrollTo({
+          left: 0,
+          behavior: 'smooth'
+        });
+      }
+    }, 30);
+  });
+}
 async function loadDetail(x){
   if(!x) throw Error('Không tìm thấy căn');
   if(details.has(x.id))return details.get(x.id);

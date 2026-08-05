@@ -165,3 +165,72 @@ body.noScroll .leadModal,body.noScroll .modal{touch-action:auto}
   .card:hover{transform:none;box-shadow:0 8px 30px #173b6814}
   .card:hover img{transform:none}
 }
+/* ===== V17.2.1 HOT & MỚI CAROUSEL ===== */
+
+#hot,
+#newest{
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  gap:20px !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  scroll-behavior:smooth;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  padding-bottom:10px;
+}
+
+#hot::-webkit-scrollbar,
+#newest::-webkit-scrollbar{
+  display:none;
+}
+
+#hot>.card,
+#newest>.card{
+  flex:0 0 calc((100% - 60px)/4) !important;
+  min-width:calc((100% - 60px)/4) !important;
+  max-width:calc((100% - 60px)/4) !important;
+  scroll-snap-align:start;
+}
+
+/* Laptop */
+@media (min-width:901px) and (max-width:1499px){
+
+  #hot>.card,
+  #newest>.card{
+    flex-basis:calc((100% - 40px)/3) !important;
+    min-width:calc((100% - 40px)/3) !important;
+    max-width:calc((100% - 40px)/3) !important;
+  }
+
+}
+
+/* Tablet */
+@media (min-width:761px) and (max-width:900px){
+
+  #hot>.card,
+  #newest>.card{
+    flex-basis:calc((100% - 14px)/2) !important;
+    min-width:calc((100% - 14px)/2) !important;
+    max-width:calc((100% - 14px)/2) !important;
+  }
+
+}
+
+/* Mobile */
+@media (max-width:760px){
+
+  #hot,
+  #newest{
+    gap:8px !important;
+  }
+
+  #hot>.card,
+  #newest>.card{
+    flex-basis:calc((100% - 8px)/2) !important;
+    min-width:calc((100% - 8px)/2) !important;
+    max-width:calc((100% - 8px)/2) !important;
+  }
+
+}

@@ -1,4 +1,4 @@
-const CACHE='ky-ai-v17-wrapped-v16-location-amenities-20260805-1';
+const CACHE='ky-ai-v17-2-1-carousel-20260805-6';
 const CORE=['./','./index.html','./app.css','./app.js','./v16-features.js','./v16-features.css','./locations.js','./splash-gate.js','./manifest.webmanifest','./data/initial.json'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).catch(()=>{}))});
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
