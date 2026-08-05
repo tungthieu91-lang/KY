@@ -124,7 +124,9 @@ body.noScroll .leadModal,body.noScroll .modal{touch-action:auto}
    ========================================================= */
 @media (min-width:761px){
   main{max-width:1560px!important;padding-left:28px!important;padding-right:28px!important}
-  .grid,.rail{align-items:stretch}
+  .grid{align-items:stretch}
+  .rail{display:flex!important;align-items:stretch;gap:18px!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
+  .rail::-webkit-scrollbar{display:none}
   .card{height:100%;display:flex;flex-direction:column;transition:transform .24s ease,box-shadow .24s ease}
   .card .coverWrap{overflow:hidden}
   .card img{transition:transform .28s ease}
@@ -136,17 +138,26 @@ body.noScroll .leadModal,body.noScroll .modal{touch-action:auto}
   .actions{margin-top:0}
   .card:hover{transform:translateY(-5px);box-shadow:0 18px 42px #173b6826}
   .card:hover img{transform:scale(1.025)}
-  .railBlock{overflow:visible}
+  .railBlock{overflow:hidden}
+}
+
+
+@media (min-width:761px) and (max-width:900px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+  .rail .card{flex:0 0 calc((100% - 14px)/2)!important;min-width:calc((100% - 14px)/2)!important;max-width:calc((100% - 14px)/2)!important}
 }
 
 /* Comfortable laptop layout. */
 @media (min-width:901px) and (max-width:1499px){
-  .grid,.rail{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important}
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important}
+  .rail .card{flex:0 0 calc((100% - 36px)/3)!important;min-width:calc((100% - 36px)/3)!important;max-width:calc((100% - 36px)/3)!important}
 }
 
 /* True large desktop layout. */
 @media (min-width:1500px){
-  .grid,.rail{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:20px!important}
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:20px!important}
+  .rail{gap:20px!important}
+  .rail .card{flex:0 0 calc((100% - 60px)/4)!important;min-width:calc((100% - 60px)/4)!important;max-width:calc((100% - 60px)/4)!important}
 }
 
 /* Disable hover motion for touch/pointer-limited devices. */
