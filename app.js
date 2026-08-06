@@ -226,7 +226,7 @@ async function boot(){
     const initial=await loadIndex('./data/initial.json','default');
     const ov=overrides(),hid=hidden();
     ALL=initial.items.filter(x=>!hid.has(x.id)).map(x=>normalizeProperty({...x,...(ov[x.id]||{})}));
-    RESULTS=[...ALL];installBridge();setupAds();
+    RESULTS=shuffleProperties(ALL);
     $('#summary').textContent=`✓ Đang hiển thị nhanh ${ALL.length} căn đầu tiên…`;
     render(true);renderRails();
     window.dispatchEvent(new CustomEvent('ky:data-ready',{detail:{count:ALL.length,partial:true}}));
@@ -242,7 +242,7 @@ async function boot(){
         if(privacyRes.ok)PRIVACY=await privacyRes.json();
         if(streetRes.ok)STREET_ALIASES=(await streetRes.json()).aliases||[];
         ALL=d.items.filter(x=>!hid.has(x.id)).map(x=>normalizeProperty({...x,...(ov[x.id]||{})}));
-        RESULTS=[...ALL];installBridge();
+        RESULTS=shuffleProperties(ALL);
         $('#summary').textContent=`✓ Đã sẵn sàng ${d.count.toLocaleString('vi-VN')} căn. Dữ liệu chi tiết chỉ tải khi mở hồ sơ.`;
         render(true);renderRails();
         window.dispatchEvent(new CustomEvent('ky:full-data-ready',{detail:{count:ALL.length}}));
@@ -254,7 +254,7 @@ async function boot(){
     try{
       const d=await loadIndex('./data/index.json','default'),ov=overrides(),hid=hidden();
       ALL=d.items.filter(x=>!hid.has(x.id)).map(x=>normalizeProperty({...x,...(ov[x.id]||{})}));
-      RESULTS=[...ALL];installBridge();setupAds();render(true);renderRails();
+      RESULTS=shuffleProperties(ALL);
       $('#summary').textContent=`✓ Đã tải ${d.count.toLocaleString('vi-VN')} căn.`;
       window.dispatchEvent(new CustomEvent('ky:data-ready',{detail:{count:ALL.length,partial:false}}));
     }catch(e2){$('#summary').textContent='Không tải được dữ liệu: '+e2.message;console.error(e2)}
@@ -312,6 +312,17 @@ function filter(){
 }
 function card(x,small=false){let is=saved.has(x.id);return `<article class="card" data-id="${esc(x.id)}"><div class="coverWrap"><img loading="lazy" data-privacy data-property-id="${esc(x.id)}" src="${esc(x.im)}" alt="${esc(x.t)}" onerror="this.style.visibility='hidden'"></div><div class="body"><h3>${esc(x.t)}</h3><div class="loc"><span>📍 Địa chỉ cũ: ${esc([x.st,x.d].filter(Boolean).join(', '))}</span>${newAddressHTML(x)}</div><div class="primaryFacts"><div class="primaryPrice"><small>GIÁ BÁN</small><strong>${esc(x.pt||x.p+' tỷ')}</strong></div><div class="primaryArea"><small>DIỆN TÍCH</small><strong>${esc(x.a)} m²</strong></div></div>${x.b?`<div class="secondaryFact">🛏 ${x.b} phòng ngủ</div>`:''}<div class="actions"><button class="save" data-save>${is?'❤️ Đã lưu':'♡ Lưu'}</button><button class="compareBtn" data-compare>${compare.has(x.id)?'✓ Đã chọn':'⚖️ So sánh'}</button><button class="view" data-view>Xem hồ sơ</button></div></div></article>`}
 function bind(root=document){$$('[data-view]',root).forEach(b=>b.onclick=()=>openDetail(b.closest('.card').dataset.id));$$('[data-save]',root).forEach(b=>b.onclick=()=>toggleSave(b.closest('.card').dataset.id,b));$$('[data-compare]',root).forEach(b=>b.onclick=()=>toggleCompare(b.closest('.card').dataset.id,b))}
+/* V17.2 UI 1.1 — tạo thứ tự kho hàng mới */
+function shuffleProperties(items){
+  const result=[...items];
+
+  for(let i=result.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [result[i],result[j]]=[result[j],result[i]];
+  }
+
+  return result;
+}
 function render(reset=false){if(reset){shown=0;$('#grid').innerHTML=''}let batch=RESULTS.slice(shown,shown+30);$('#grid').insertAdjacentHTML('beforeend',batch.map(x=>card(x)).join(''));shown+=batch.length;$('#count').textContent=`${RESULTS.length.toLocaleString('vi-VN')} căn`;$('#more').style.display=shown<RESULTS.length?'block':'none';bind($('#grid'));scanVisiblePrivacy($('#grid'))}
 function renderRails() {
   const hot = [...ALL]
@@ -422,7 +433,7 @@ function home(){
   document.activeElement?.blur?.();
   closePropertyModal();
   closeLead();
-  RESULTS=[...ALL];
+  RESULTS=shuffleProperties(ALL);
   $('#title').textContent='Tất cả sản phẩm bất động sản';
   $('#summary').textContent=`✓ Đã tải chỉ mục ${ALL.length.toLocaleString('vi-VN')} căn. Dữ liệu chi tiết chỉ tải khi bạn mở hồ sơ.`;
   render(true);
